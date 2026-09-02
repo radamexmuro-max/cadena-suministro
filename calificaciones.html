@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Calificaciones 1er Semestre</title>
+<style>
+body{font-family:Arial; background:#0f172a; color:white; padding:20px}
+h1{text-align:center; color:#38bdf8}
+table{width:100%; border-collapse:collapse; background:white; color:black; border-radius:10px; overflow:hidden}
+th{background:#38bdf8; padding:10px}
+td{padding:8px; text-align:center; border-bottom:1px solid #ddd}
+.aprobado{background:#dcfce7}
+.reprobado{background:#fee2e2}
+input,button{padding:8px; margin:5px; border-radius:5px; border:none}
+button{background:#38bdf8; font-weight:bold; cursor:pointer}
+</style>
+</head>
+<body>
+<h1>📚 Calificaciones 1er Semestre - 20 Alumnos</h1>
+<table id="tabla">
+<tr><th>#</th><th>Alumno</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dic</th><th>Promedio</th></tr>
+</table>
+<br>
+<h3>Agregar alumno nuevo</h3>
+<input id="nom" placeholder="Nombre">
+<input id="s1" placeholder="Sep" type="number">
+<input id="s2" placeholder="Oct" type="number">
+<input id="s3" placeholder="Nov" type="number">
+<input id="s4" placeholder="Dic" type="number">
+<button onclick="agregar()">Agregar en tiempo real</button>
+
+<script>
+const alumnos=[
+["Radamés Muro",9,10,9,10],["Ana Torres",8,9,8,9],["Luis García",7,6,7,8],
+["Karla Ruiz",10,10,9,10],["Jorge Muro",6,7,6,5],["Bamba Flow",9,9,10,9],
+["Sofia Lopez",8,8,9,8],["Diego Cruz",5,6,5,6],["Mariana P.",9,8,9,9],
+["Carlos V.",7,7,8,7],["Fernanda R.",10,9,10,10],["Alexis S.",6,5,6,6],
+["Valeria M.",8,9,10,9],["Oscar T.",7,8,7,8],["Brenda L.",9,9,9,10],
+["Hugo M.",6,6,7,7],["Itzel G.",10,10,10,9],["Kevin R.",8,7,8,8],
+["Daniela F.",9,10,10,10],["Paco Memo",5,5,6,5]
+];
+const tabla=document.getElementById('tabla');
+function cargar(){
+tabla.innerHTML='<tr><th>#</th><th>Alumno</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dic</th><th>Promedio</th></tr>';
+alumnos.forEach((a,i)=>{
+let prom=((a[1]+a[2]+a[3]+a[4])/4).toFixed(1);
+let cls=prom>=7?'aprobado':'reprobado';
+tabla.innerHTML+=`<tr class="${cls}"><td>${i+1}</td><td>${a[0]}</td><td>${a[1]}</td><td>${a[2]}</td><td>${a[3]}</td><td>${a[4]}</td><td><b>${prom}</b></td></tr>`;
+});
+}
+function agregar(){
+let n=document.getElementById('nom').value;
+let v1=parseFloat(document.getElementById('s1').value);
+let v2=parseFloat(document.getElementById('s2').value);
+let v3=parseFloat(document.getElementById('s3').value);
+let v4=parseFloat(document.getElementById('s4').value);
+if(n &&!isNaN(v1)){alumnos.push([n,v1,v2,v3,v4]); cargar();}
+}
+cargar();
+</script>
+</body>
+</html>
