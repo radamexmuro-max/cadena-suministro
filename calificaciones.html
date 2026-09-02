@@ -2,54 +2,92 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Calificaciones 1er Semestre</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Calificaciones</title>
 <style>
-body{font-family:Arial;background:#0f172a;color:white;padding:10px}
-h1{text-align:center;color:#38bdf8}
-table{width:100%;border-collapse:collapse;background:white;color:black;border-radius:10px;overflow:hidden}
-th{background:#38bdf8;padding:10px}
-td{padding:8px;text-align:center;border-bottom:1px solid #ddd}
-.aprobado{background:#dcfce7}.reprobado{background:#fee2e2}
-input,button{padding:8px;margin:5px;border-radius:6px;border:none}
-button{background:#38bdf8;font-weight:bold}
+body{font-family:Arial;background:#0f172a;color:#fff;padding:10px}
+h1{text-align:center;color:#38bdf8;font-size:20px}
+table{width:100%;border-collapse:collapse;background:#fff;color:#000}
+th{background:#38bdf8;padding:6px;font-size:12px}
+td{padding:5px;text-align:center;border:1px solid #ccc;font-size:12px}
+.aprobado{background:#dcfce7}
+.reprobado{background:#fee2e2}
+input,button{padding:7px;margin:3px}
+button{background:#38bdf8;border:none;border-radius:5px}
 </style>
 </head>
 <body>
-<h1>📚 Calificaciones 1er Semestre - 20 Alumnos</h1>
-<table id="tabla"><tr><th>#</th><th>Alumno</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dic</th><th>Promedio</th><th>Estado</th></tr></table>
-<br>
-<h3>Agregar alumno nuevo</h3>
+<h1>Calificaciones - 20 Alumnos</h1>
+<table id="tabla"></table>
+<div>
 <input id="nom" placeholder="Nombre">
-<input id="s1" placeholder="Sep" type="number">
-<input id="s2" placeholder="Oct" type="number">
-<input id="s3" placeholder="Nov" type="number">
-<input id="s4" placeholder="Dic" type="number">
-<button onclick="agregar()">Agregar y calcular</button>
-
+<input id="s1" type="number" placeholder="Sep">
+<input id="s2" type="number" placeholder="Oct">
+<input id="s3" type="number" placeholder="Nov">
+<input id="s4" type="number" placeholder="Dic">
+<button onclick="agregar()">Agregar</button>
+</div>
 <script>
 let alumnos=[
-["Ana Torres",8,9,9,8],["Luis Garcia",7,6,5,6],["Maria Lopez",10,9,10,9],["Jorge Ruiz",6,5,6,5],
-["Sofia Diaz",9,9,8,9],["Carlos Muro",8,8,7,8],["Valeria Cruz",10,10,9,10],["Pedro Sanchez",5,6,5,4],
-["Lucia Reyes",9,8,9,8],["Miguel Angel",7,7,8,7],["Fernanda Ortiz",8,9,8,8],["Diego Ramos",6,6,7,6],
-["Camila Flores",9,10,9,9],["Javier Mendez",7,8,7,8],["Andrea Gomez",8,8,9,9],["Ricardo Vidal",5,5,6,5],
-["Paola Jimenez",9,9,9,10],["Emilio Castro",8,7,8,7],["Daniela Vega",10,9,9,10],["Arturo Luna",6,7,6,7]
+["Ana Torres",8,9,9,8],
+["Luis Garcia",7,6,5,6],
+["Maria Lopez",10,9,10,9],
+["Jorge Ruiz",6,5,6,5],
+["Sofia Diaz",9,9,8,9],
+["Carlos Muro",8,8,7,8],
+["Valeria Cruz",10,10,9,10],
+["Pedro Sanchez",5,6,5,4],
+["Lucia Reyes",9,8,9,8],
+["Miguel Angel",7,7,8,7],
+["Fernanda Ortiz",8,9,8,8],
+["Diego Ramos",6,6,7,6],
+["Camila Flores",9,10,9,9],
+["Javier Mendez",7,8,7,8],
+["Andrea Gomez",8,8,9,9],
+["Ricardo Vidal",5,5,6,5],
+["Paola Jimenez",9,9,9,10],
+["Emilio Castro",8,7,8,7],
+["Daniela Vega",10,9,9,10],
+["Arturo Luna",6,7,6,7]
 ];
 function mostrar(){
 let t=document.getElementById("tabla");
-t.innerHTML='<tr><th>#</th><th>Alumno</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dic</th><th>Promedio</th><th>Estado</th></tr>';
+let h="<tr>";
+h+="<th>#</th><th>Alumno</th>";
+h+="<th>Sep</th><th>Oct</th>";
+h+="<th>Nov</th><th>Dic</th>";
+h+="<th>Prom</th><th>Est</th></tr>";
+t.innerHTML=h;
 alumnos.forEach((a,i)=>{
 let prom=((a[1]+a[2]+a[3]+a[4])/4).toFixed(1);
 let est=prom>=6?"Aprobado":"Reprobado";
 let clase=prom>=6?"aprobado":"reprobado";
-t.innerHTML+=`<tr class="${clase}"><td>${i+1}</td><td>${a[0]}</td><td>${a[1]}</td><td>${a[2]}</td><td>${a[3]}</td><td>${a[4]}</td><td>${prom}</td><td>${est}</td></tr>`;
+let fila="<tr class='"+clase+"'>";
+fila+="<td>"+(i+1)+"</td>";
+fila+="<td>"+a[0]+"</td>";
+fila+="<td>"+a[1]+"</td>";
+fila+="<td>"+a[2]+"</td>";
+fila+="<td>"+a[3]+"</td>";
+fila+="<td>"+a[4]+"</td>";
+fila+="<td>"+prom+"</td>";
+fila+="<td>"+est+"</td></tr>";
+t.innerHTML+=fila;
 });
 }
 function agregar(){
 let n=document.getElementById("nom").value;
-let v1=parseFloat(s1.value)||0,v2=parseFloat(s2.value)||0,v3=parseFloat(s3.value)||0,v4=parseFloat(s4.value)||0;
+let v1=parseFloat(document.getElementById("s1").value)||0;
+let v2=parseFloat(document.getElementById("s2").value)||0;
+let v3=parseFloat(document.getElementById("s3").value)||0;
+let v4=parseFloat(document.getElementById("s4").value)||0;
 if(!n){alert("Pon nombre");return;}
-alumnos.push([n,v1,v2,v3,v4]); mostrar();
-nom.value="";s1.value="";s2.value="";s3.value="";s4.value="";
+alumnos.push([n,v1,v2,v3,v4]);
+mostrar();
+document.getElementById("nom").value="";
+document.getElementById("s1").value="";
+document.getElementById("s2").value="";
+document.getElementById("s3").value="";
+document.getElementById("s4").value="";
 }
 mostrar();
 </script>
